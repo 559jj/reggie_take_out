@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -31,6 +32,7 @@ public class UserController {
             String code = ValidateCodeUtils.generateValidateCode(4).toString();
             //调用阿里云提供的短信服务API完成发送短信
            // SMSUtils.sendMessage("瑞吉外卖","",phone,code);
+            log.info("code={}",code);
             //保存验证码到session中
             session.setAttribute(phone,code);
             return R.success("手机验证码发送成功");
@@ -39,8 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public R<String> login(int id,int name){
-
-        return null;
+    public R<User> login(@RequestBody Map map, HttpSession session){
+        return userService.login(map,session);
     }
 }

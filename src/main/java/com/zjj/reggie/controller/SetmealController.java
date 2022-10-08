@@ -65,11 +65,20 @@ public class SetmealController {
         return R.success(dtoPage);
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     //传过来的数据本身是数组形式，所以加不加注解无所谓，但是List是列表，所以要加@RequestParam注解
     public R<String> delete(@RequestParam List<Long> ids){
         log.info("ids:{}",ids);
         setmealService.removeWithDish(ids);
         return R.success("套餐数据删除成功");
+    }
+    @GetMapping("/list")
+    public R<List<Setmeal>> list(Setmeal setmeal){
+        LambdaQueryWrapper<Setmeal> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(setmeal.getCategoryId()!=null,Setmeal::getCategoryId,setmeal.getCategoryId());
+        queryWrapper.eq(setmeal.getStatus()!=null,Setmeal::getStatus,setmeal.getStatus());
+        queryWrapper.orderByDesc(Setmeal::getUpdateTime);
+        List<Setmeal> list = setmealService.list(queryWrapper);
+        return R.success(list);
     }
 }

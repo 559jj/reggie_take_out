@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements DishService {
     @Autowired
     DishFlavorService dishFlavorService;
+
     /**
      * 新增菜品，同时保存对应的口味数据
      * @param dishDto
@@ -68,7 +70,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
         //更新dish表基本信息
         this.updateById(dishDto);
         //清理当前菜品对应的口味数据-dish_flavor表的delete操作
-        LambdaQueryWrapper<DishFlavor> queryWrapper=new LambdaQueryWrapper();
+        LambdaQueryWrapper<DishFlavor> queryWrapper=new LambdaQueryWrapper<>();
         queryWrapper.eq(DishFlavor::getId,dishDto.getId());
         dishFlavorService.remove(queryWrapper);
         //添加当前提交过来的口味数据——dish_flavor表的insert操作
@@ -78,8 +80,14 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
             return item;
         }).collect(Collectors.toList());
         dishFlavorService.saveBatch(flavors);
-
     }
 
-
+    @Override
+    @Transactional
+    public void removeWithFlavor(Long ids) {
+        this.removeById(ids);
+        LambdaQueryWrapper<DishFlavor> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(DishFlavor::getDishId,ids);
+        dishFlavorService.remove(queryWrapper);
+    }
 }

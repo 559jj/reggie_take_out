@@ -11,7 +11,7 @@ public class ValidateCodeUtils {
      * @param length 长度为4位或者6位
      * @return
      */
-    public static Integer generateValidateCode(int length){
+    public static Integer generateValidateCode(Integer length){
         Integer code =null;
         if(length == 4){
             code = new Random().nextInt(9999);//生成随机数，最大为9999
