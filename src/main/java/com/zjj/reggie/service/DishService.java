@@ -11,12 +11,12 @@ import java.util.List;
 
 public interface DishService extends IService<Dish>{
 
-    public void saveWithFlavor(DishDto dishDto);
+     void saveWithFlavor(DishDto dishDto);
 
     //根据id查询菜品信息对应的口味
-    public DishDto getByIdWithFlavor(Long id);
+     DishDto getByIdWithFlavor(Long id);
 
-    public void updateWithFlavor(DishDto dishDto);
+     void updateWithFlavor(DishDto dishDto);
 
 
     void removeWithFlavor(Long ids);
