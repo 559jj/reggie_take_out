@@ -1,8 +1,9 @@
-package com.zjj.reggie.service;
+package com.zjj.reggie.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zjj.reggie.entity.OrderDetail;
 import com.zjj.reggie.mapper.OrderDetailMapper;
+import com.zjj.reggie.service.OrderDetailService;
 import org.springframework.stereotype.Service;
 
 /**

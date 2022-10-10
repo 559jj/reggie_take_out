@@ -9,4 +9,6 @@ import java.util.Map;
 
 public interface UserService extends IService<User> {
     R<User> login(Map map, HttpSession session);
+
+    R<String> sendMsg(User user);
 }
