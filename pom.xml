@@ -63,6 +63,11 @@
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>4.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.2</version>
+        </dependency>
 
 <!--        <dependency>-->
 <!--            <groupId>com.aliyun</groupId>-->
@@ -79,6 +84,7 @@
             <artifactId>qcloudsms</artifactId>
             <version>1.0.5</version>
         </dependency>
+
     </dependencies>
 
 
